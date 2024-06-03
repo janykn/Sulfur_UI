@@ -1,5 +1,5 @@
 {
-  "name": "sulfur_ui",
+  "name": "sulfur-ui",
   "version": "1.0.0",
   "description": "Frontend Toolkit",
   "main": "index.js",
@@ -7,7 +7,18 @@
     "build": "rollup -c",
     "test": "jest"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janykn/Sulfur_UI.git"
+  },
+  "keywords": [
+    "sulfur-ui",
+    "sulfur",
+    "ui",
+    "sulfur",
+    "sulfur_ui"
+  ],
+  "author": "Janardhan Ykunta",
   "license": "MIT",
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
@@ -27,6 +38,11 @@
     "rollup-plugin-postcss": "^4.0.2"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.19",
+    "@mui/material": "^5.15.19",
+    "framer-motion": "^11.2.10",
     "rollup-plugin-peer-deps-external": "^2.2.4"
   }
 }
