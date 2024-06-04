@@ -32,13 +32,49 @@ const Modal = ({ isOpen, onClose, layoutProps, visualProps, children, closeCompo
     right: '10px',
   };
 
-  const { 
-    bgColor = defaultVisualProps.bgColor, 
-    border = defaultVisualProps.border, 
-    borderRadius = defaultVisualProps.borderRadius, 
-    fontColor = defaultVisualProps.fontColor, 
-    popupDirection = defaultVisualProps.popupDirection 
+  const {
+    bgColor = defaultVisualProps.bgColor,
+    border = defaultVisualProps.border,
+    borderRadius = defaultVisualProps.borderRadius,
+    fontColor = defaultVisualProps.fontColor,
+    popupDirection = defaultVisualProps.popupDirection,
   } = visualProps || {};
+
+  const getInitialPosition = () => {
+    switch (popupDirection) {
+      case 'left-fit':
+        return { x: '-100%' };
+      case 'right-fit':
+        return { x: '100%' };
+      default:
+        return { x: '-50%', y: '-50%' };
+    }
+  };
+
+  const getAnimatePosition = () => {
+    switch (popupDirection) {
+      case 'left-fit':
+      case 'right-fit':
+        return { x: 0 };
+      case 'center':
+        return { scale: 1 };
+      default:
+        return { x: '-50%', y: '-50%' };
+    }
+  };
+
+  const getExitPosition = () => {
+    switch (popupDirection) {
+      case 'left-fit':
+        return { x: '-100%' };
+      case 'right-fit':
+        return { x: '100%' };
+      case 'center':
+        return { scale: 0 };
+      default:
+        return { x: '-50%', y: '-50%' };
+    }
+  };
 
   const defaultPositionProps = () => {
     switch (popupDirection) {
@@ -59,7 +95,7 @@ const Modal = ({ isOpen, onClose, layoutProps, visualProps, children, closeCompo
     top = defaultPositionProps().top,
     left = defaultPositionProps().left,
     right = defaultPositionProps().right,
-    bottom = defaultPositionProps().bottom
+    bottom = defaultPositionProps().bottom,
   } = layoutProps || {};
 
   const getModalStyles = () => {
@@ -104,11 +140,11 @@ const Modal = ({ isOpen, onClose, layoutProps, visualProps, children, closeCompo
       {isOpen && (
         <motion.div
           onClick={(e) => e.stopPropagation()}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          initial={getInitialPosition()}
+          animate={getAnimatePosition()}
+          exit={getExitPosition()}
           style={getModalStyles()}
-          transition={{ duration: 0.3 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 25 }}
         >
           {closeComponent ? (
             <div onClick={handleClose} style={closeButtonStyles}>
