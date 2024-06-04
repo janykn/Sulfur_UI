@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { motion, useAnimation } from 'framer-motion';
 
@@ -20,6 +20,9 @@ const InputBox = ({ placeholder, value, onChange, styles }) => {
     position: 'relative',
     marginBottom: '20px',
     backgroundColor: styles.backgroundColor,
+    '@media (max-width: 600px)': {
+      marginBottom: '10px',
+    },
   };
 
   const inputStyles = {
@@ -30,7 +33,11 @@ const InputBox = ({ placeholder, value, onChange, styles }) => {
     border: styles.inputBorder,
     borderRadius: '5px',
     backgroundColor: styles.backgroundColor,
-    fontFamily: styles.InputfontFamily
+    fontFamily: styles.InputfontFamily,
+    '@media (max-width: 600px)': {
+      padding: '8px',
+      fontSize: '14px',
+    },
   };
 
   const placeholderStyles = {
@@ -43,6 +50,11 @@ const InputBox = ({ placeholder, value, onChange, styles }) => {
     backgroundColor: styles.backgroundColor,
     padding: '0 5px',
     pointerEvents: 'none',
+    '@media (max-width: 600px)': {
+      top: '8px',
+      left: '8px',
+      fontSize: '12px',
+    },
   };
 
   return (
@@ -70,7 +82,7 @@ InputBox.propTypes = {
     inputColor: PropTypes.string,
     inputBorder: PropTypes.string,
     placeholderColor: PropTypes.string,
-    InputfontFamily: PropTypes.string
+    InputfontFamily: PropTypes.string,
   }),
 };
 

@@ -15,18 +15,24 @@ const Button = ({ onClick, children, styles }) => {
     padding: styles.padding,
     cursor: 'pointer',
     boxShadow: styles.boxShadow,
+    hoverbgColor: styles.hoverbgColor,
+    hoverColor: styles.hoverColor,
+    '@media (max-width: 600px)': {
+      padding: '4px 8px',
+      fontSize: '14px',
+    },
   };
 
   const childStyles = {
     paddingRight: '6px',
+    userSelect: 'none',
   };
 
   return (
     <motion.div
-      className="cta-button"
-      whileHover={{ scale: 1.03 }}
-      onHoverStart={(e) => {}}
-      onHoverEnd={(e) => {}}
+      whileHover={{ scale: 1.1, backgroundColor: buttonStyles.hoverbgColor, color: buttonStyles.hoverColor }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ bounceDamping: 10, bounceStiffness: 600 }}
       style={buttonStyles}
       onClick={onClick}
     >
@@ -47,6 +53,8 @@ Button.propTypes = {
     borderRadius: PropTypes.string,
     padding: PropTypes.string,
     boxShadow: PropTypes.string,
+    hoverbgColor: PropTypes.string,
+    hoverColor: PropTypes.string,
   }),
 };
 
@@ -58,6 +66,8 @@ Button.defaultProps = {
     borderRadius: '4px',
     padding: '6px 16px',
     boxShadow: '0px 4px 6px rgba(0, 0, 0, 1)',
+    hoverbgColor: '#f0f0f0',
+    hoverColor: '#000',
   },
 };
 
