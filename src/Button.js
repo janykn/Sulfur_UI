@@ -1,21 +1,20 @@
-// Button.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
 const Button = ({ onClick, children, styles }) => {
   const buttonStyles = {
-    display: 'inline-flex', // Updated display property
+    display: 'inline-flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: styles.backgroundColor || 'white',
-    color: styles.color || 'black',
-    border: styles.border || 'none',
-    borderRadius: styles.borderRadius || '4px',
-    padding: styles.padding || '0px 16px',
+    backgroundColor: styles.backgroundColor,
+    color: styles.color,
+    border: styles.border,
+    borderRadius: styles.borderRadius,
+    padding: styles.padding,
     cursor: 'pointer',
-    boxShadow: '0px 4px 6px rgba(0, 0, 0, 1)', // Added boxShadow for shadow effect
+    boxShadow: styles.boxShadow,
   };
 
   const childStyles = {
@@ -23,17 +22,16 @@ const Button = ({ onClick, children, styles }) => {
   };
 
   return (
-    <motion.div 
-    className="cta-button"
-    whileHover={{ scale: 1.03 }}
-    onHoverStart={e => {}}
-    onHoverEnd={e => {}}
-    style={buttonStyles} onClick={onClick}
-  >
+    <motion.div
+      className="cta-button"
+      whileHover={{ scale: 1.03 }}
+      onHoverStart={(e) => {}}
+      onHoverEnd={(e) => {}}
+      style={buttonStyles}
+      onClick={onClick}
+    >
       {React.Children.map(children, (child) => (
-        <div style={childStyles}>
-          {child}
-        </div>
+        <div style={childStyles}>{child}</div>
       ))}
     </motion.div>
   );
@@ -48,11 +46,19 @@ Button.propTypes = {
     border: PropTypes.string,
     borderRadius: PropTypes.string,
     padding: PropTypes.string,
+    boxShadow: PropTypes.string,
   }),
 };
 
 Button.defaultProps = {
-  styles: {},
+  styles: {
+    backgroundColor: 'white',
+    color: 'black',
+    border: 'none',
+    borderRadius: '4px',
+    padding: '6px 16px',
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 1)',
+  },
 };
 
 export default Button;
