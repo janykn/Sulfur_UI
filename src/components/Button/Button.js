@@ -15,6 +15,7 @@ const Button = ({ onClick, children, styles }) => {
     padding: styles.padding,
     cursor: 'pointer',
     boxShadow: styles.boxShadow,
+    userSelect: 'none',
     hoverbgColor: styles.hoverbgColor,
     hoverColor: styles.hoverColor,
     '@media (max-width: 600px)': {
