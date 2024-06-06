@@ -9,6 +9,10 @@ const Dropdown = ({ header, children, styles }) => {
     setIsOpen(!isOpen);
   };
 
+  const handleMenuItemClick = () => {
+    setIsOpen(false);
+  };
+
   const dropdownStyles = {
     dropdown: {
         position: 'relative',
@@ -70,6 +74,7 @@ const Dropdown = ({ header, children, styles }) => {
             onMouseLeave: (e) => {
               e.target.style.backgroundColor = styles.menuBackgroundColor;
             },
+            onClick: handleMenuItemClick,
           })
         )}
       </motion.div>
