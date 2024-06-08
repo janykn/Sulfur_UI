@@ -5,6 +5,7 @@
   align-items: center;
   margin: 1rem;
   border-radius: 1rem;
+  padding: 2rem;
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
   overflow-y: hidden;
@@ -31,7 +32,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 1rem;
+  margin: 0 auto;
 }
 
 .days{
@@ -164,6 +165,7 @@
 .date-range-picker.dark-theme {
   background-color: #333;
   color: #fff;
+  padding: 2rem;
 }
 
 .dark-theme .header {
@@ -217,6 +219,7 @@
 .date-range-picker.light-theme {
   background-color: #f9f9f9;
   color: #333;
+  padding: 2rem;
 }
 
 .light-theme .header {
@@ -271,7 +274,7 @@
   .date-range-picker {
     width: 100%;
     margin: auto;
-    padding: 1rem;
+    padding: 1.5rem 2rem;
   }
 
   .header {
@@ -299,6 +302,7 @@
   .date-range-picker {
     width: 100%;
     margin: auto;
+    padding: 1.5rem 2rem;
   }
 
   .header {
