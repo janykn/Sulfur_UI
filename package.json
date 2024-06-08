@@ -1,6 +1,6 @@
 {
   "name": "sulfur-ui",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Frontend Toolkit",
   "main": "dist/index.js",
   "scripts": {
