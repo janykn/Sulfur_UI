@@ -220,6 +220,7 @@
 
 .light-theme .day:hover {
   background-color: #e0e0e0;
+  color: black;
 }
 
 .light-theme .day.disabled {
@@ -241,6 +242,7 @@
 .light-theme .year:hover,
 .light-theme .month:hover {
   background-color: #e0e0e0;
+  color: black;
 }
 
 .light-theme .year.selected,
