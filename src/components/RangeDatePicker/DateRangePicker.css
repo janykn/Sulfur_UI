@@ -9,6 +9,9 @@
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
   overflow-y: hidden;
+  -webkit-tap-highlight-color: transparent !important;
+  outline: none !important;
+  user-select: none;
 }
 
 .header {
