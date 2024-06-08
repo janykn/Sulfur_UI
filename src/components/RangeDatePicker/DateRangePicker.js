@@ -14,18 +14,20 @@ import {
 } from "date-fns";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import './DateRangePicker.css';
+import './RangeDatePicker.css';
 
 const DateRangePicker = ({
   minDate = new Date('1999-01-01'),
   maxDate = new Date('2050-12-01'),
   theme = 'light',
   startDate: initialStartDate = new Date(),
+  width = '18rem', 
   onDateChange
 }) => {
   const today = new Date();
   const isInitialStartDateWithinRange = initialStartDate && isWithinInterval(initialStartDate, { start: minDate, end: maxDate });
   const isTodayWithinRange = isWithinInterval(today, { start: minDate, end: maxDate });
+  const [height, setHeight] = useState(width);
 
   const initialDate = isInitialStartDateWithinRange
     ? initialStartDate
@@ -193,7 +195,7 @@ const DateRangePicker = ({
   }, [currentMonth, minDate, maxDate, startDate, endDate, initialStartDate, handleDateClick]);
 
   return (
-    <div className={`date-range-picker ${theme}`}>
+    <div className={`date-range-picker ${theme}`} style={{ width, height }}>
       <div className="header">
         <>
           {isYearMonthSelectorOpen && (
