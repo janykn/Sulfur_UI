@@ -16,7 +16,13 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import './DateRangePicker.css';
 
-const DateRangePicker = ({ minDate, maxDate, theme, startDate: initialStartDate, onDateChange }) => {
+const DateRangePicker = ({
+  minDate = new Date('1999-01-01'),
+  maxDate = new Date('2050-12-01'),
+  theme = 'light',
+  startDate: initialStartDate = new Date(),
+  onDateChange
+}) => {
   const today = new Date();
   const isInitialStartDateWithinRange = initialStartDate && isWithinInterval(initialStartDate, { start: minDate, end: maxDate });
   const isTodayWithinRange = isWithinInterval(today, { start: minDate, end: maxDate });
@@ -222,7 +228,7 @@ const DateRangePicker = ({ minDate, maxDate, theme, startDate: initialStartDate,
       {!isYearMonthSelectorOpen && !isMonthSelectorOpen && (
         <>
           <div className="days-of-week">{renderDaysOfWeek()}</div>
-          <div className="calendar">{renderDays()}</div>
+          <div className="days">{renderDays()}</div>
         </>
       )}
     </div>
