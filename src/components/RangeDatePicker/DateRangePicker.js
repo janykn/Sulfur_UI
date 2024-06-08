@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   format,
   addMonths,
@@ -16,11 +16,13 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import './DateRangePicker.css';
 
-const DateRangePicker = ({  minDate = new Date('1999-01-01'),
+const DateRangePicker = ({
+  minDate = new Date('1999-01-01'),
   maxDate = new Date('2050-12-01'),
   theme = 'light',
   startDate: initialStartDate = new Date(),
-  onDateChange }) => {
+  onDateChange
+}) => {
   const today = new Date();
   const isInitialStartDateWithinRange = initialStartDate && isWithinInterval(initialStartDate, { start: minDate, end: maxDate });
   const isTodayWithinRange = isWithinInterval(today, { start: minDate, end: maxDate });
@@ -39,81 +41,78 @@ const DateRangePicker = ({  minDate = new Date('1999-01-01'),
   const [isMonthSelectorOpen, setIsMonthSelectorOpen] = useState(false);
   const [yearRange, setYearRange] = useState({ start: currentMonth.getFullYear(), end: currentMonth.getFullYear() + 19 });
 
-  useEffect(() => {
-    if (onDateChange) {
-      onDateChange({ startDate, endDate });
-    }
-  }, [startDate, endDate, onDateChange]);
-
-  const handleDateClick = (date) => {
+  const handleDateClick = useCallback((date) => {
     if (!isSelecting) {
       setStartDate(date);
       setEndDate(null);
       setIsSelecting(true);
+      onDateChange && onDateChange({ startDate: date, endDate: null });
     } else {
       if (date >= startDate) {
         setEndDate(date);
         setIsSelecting(false);
+        onDateChange && onDateChange({ startDate, endDate: date });
       } else {
         setStartDate(date);
         setEndDate(null);
+        onDateChange && onDateChange({ startDate: date, endDate: null });
       }
     }
-  };
+  }, [isSelecting, startDate, onDateChange]);
 
-  const handlePrevMonth = () => {
+  const handlePrevMonth = useCallback(() => {
     const prevMonth = subMonths(currentMonth, 1);
     if (!minDate || prevMonth >= startOfMonth(minDate)) {
       setCurrentMonth(prevMonth);
     }
-  };
+  }, [currentMonth, minDate]);
 
-  const handleNextMonth = () => {
+  const handleNextMonth = useCallback(() => {
     const nextMonth = addMonths(currentMonth, 1);
     if (!maxDate || nextMonth <= endOfMonth(maxDate)) {
       setCurrentMonth(nextMonth);
     }
-  };
+  }, [currentMonth, maxDate]);
 
-  const handleHeaderClick = () => {
+  const handleHeaderClick = useCallback(() => {
     setIsYearMonthSelectorOpen(!isYearMonthSelectorOpen);
     setIsMonthSelectorOpen(false);
-  };
+  }, [isYearMonthSelectorOpen]);
 
-  const handlePrevYears = () => {
+  const handlePrevYears = useCallback(() => {
     const newStart = yearRange.start - 20;
     const newEnd = yearRange.end - 20;
     if (!minDate || newEnd >= minDate.getFullYear()) {
       setYearRange({ start: newStart, end: newEnd });
     }
-  };
+  }, [yearRange, minDate]);
 
-  const handleNextYears = () => {
+  const handleNextYears = useCallback(() => {
     const newStart = yearRange.start;
     const newEnd = yearRange.end + 20;
     if (!maxDate || newStart <= maxDate.getFullYear()) {
       setYearRange({ start: newStart, end: newEnd });
     }
-  };
+  }, [yearRange, maxDate]);
 
-  const handleYearClick = (year) => {
+  const handleYearClick = useCallback((year) => {
     if ((!minDate || year >= minDate.getFullYear()) && (!maxDate || year <= maxDate.getFullYear())) {
       setCurrentMonth(new Date(year, currentMonth.getMonth()));
       setIsMonthSelectorOpen(true);
       setIsYearMonthSelectorOpen(false);
     }
-  };
+  }, [currentMonth, minDate, maxDate]);
 
-  const handleMonthClick = (month) => {
+  const handleMonthClick = useCallback((month) => {
     const newDate = new Date(currentMonth.getFullYear(), month);
     if ((!minDate || newDate >= startOfMonth(minDate)) && (!maxDate || newDate <= endOfMonth(maxDate))) {
       setCurrentMonth(newDate);
       setIsMonthSelectorOpen(false);
       setIsYearMonthSelectorOpen(false);
     }
-  };
+  }, [currentMonth, minDate, maxDate]);
 
-  const renderYears = () => {
+  const renderYears = useCallback(() => {
     const years = [];
     for (let i = yearRange.start; i <= yearRange.end; i++) {
       if ((!minDate || i >= minDate.getFullYear()) && (!maxDate || i <= maxDate.getFullYear())) {
@@ -129,9 +128,9 @@ const DateRangePicker = ({  minDate = new Date('1999-01-01'),
         ))}
       </div>
     );
-  };
+  }, [yearRange, currentMonth, minDate, maxDate, handleYearClick]);
 
-  const renderMonths = () => {
+  const renderMonths = useCallback(() => {
     const months = [
       "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
@@ -147,31 +146,34 @@ const DateRangePicker = ({  minDate = new Date('1999-01-01'),
       }
       return null;
     });
-  };
+  }, [currentMonth, minDate, maxDate, handleMonthClick]);
 
-  const renderDaysOfWeek = () => {
+  const renderDaysOfWeek = useCallback(() => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     return daysOfWeek.map((day) => (
       <div key={day} className="day-of-week">
         {day}
       </div>
     ));
-  };
+  }, []);
 
-  const renderDays = () => {
+  const renderDays = useCallback(() => {
     const start = startOfMonth(currentMonth);
     const end = endOfMonth(currentMonth);
     const days = eachDayOfInterval({
       start: startOfWeek(start, { weekStartsOn: 0 }), // Week starts on Sunday
       end: endOfWeek(end, { weekStartsOn: 0 }),
     });
-
-    return days.map((day) => {
+  
+    const weeks = [];
+    let week = [];
+    days.forEach((day, index) => {
       const isDisabled = (minDate && day < minDate) || (maxDate && day > maxDate);
       const isSelected = isSameDay(day, startDate) || isSameDay(day, endDate);
       const isInRange = startDate && endDate && isWithinInterval(day, { start: startDate, end: endDate });
       const isInitialStartDate = isSameDay(day, initialStartDate);
-      return (
+  
+      week.push(
         <div
           key={day}
           className={`day ${isInitialStartDate ? "initial" : ""} ${isSelected ? "selected" : ""} ${isInRange ? "in-range" : ""} ${!isSameMonth(day, start) ? "disabled" : ""} ${isDisabled ? "disabled" : ""}`}
@@ -180,8 +182,15 @@ const DateRangePicker = ({  minDate = new Date('1999-01-01'),
           {format(day, "d")}
         </div>
       );
+  
+      if ((index + 1) % 7 === 0) {
+        weeks.push(<div className="week" key={index}>{week}</div>);
+        week = [];
+      }
     });
-  };
+  
+    return weeks;
+  }, [currentMonth, minDate, maxDate, startDate, endDate, initialStartDate, handleDateClick]);
 
   return (
     <div className={`date-range-picker ${theme}`}>
@@ -193,9 +202,9 @@ const DateRangePicker = ({  minDate = new Date('1999-01-01'),
           {!isYearMonthSelectorOpen && (
             <div onClick={handlePrevMonth} className={`arrow-icon ${minDate && currentMonth <= startOfMonth(minDate) ? "disabled" : ""}`}><ArrowBackIcon /></div>
           )}
-          
+
           {isYearMonthSelectorOpen && (
-            <span onClick={handleHeaderClick}>Please Select an Year</span>
+            <span onClick={handleHeaderClick}>Please Select a Year</span>
           )}
           {!isYearMonthSelectorOpen && (
             <span onClick={handleHeaderClick}>{format(currentMonth, "MMMM yyyy")}</span>
@@ -209,26 +218,14 @@ const DateRangePicker = ({  minDate = new Date('1999-01-01'),
           )}
         </>
       </div>
-      {isYearMonthSelectorOpen && (
-        <div className="year-month-selector">
-          <div className="years">
-            {renderYears()}
-          </div>
-        </div>
-      )}
-      {isMonthSelectorOpen && (
-        <div className="year-month-selector">
-          <div className="months">
-            {renderMonths()}
-          </div>
-        </div>
-      )}
-      {!isYearMonthSelectorOpen && !isMonthSelectorOpen && (
-        <>
-          <div className="days-of-week">{renderDaysOfWeek()}</div>
-          <div className="calendar">{renderDays()}</div>
-        </>
-      )}
+
+      {!isYearMonthSelectorOpen && !isMonthSelectorOpen && (<div>
+        <div className="days-of-week">{renderDaysOfWeek()}</div>
+      <div className="days">{renderDays()}</div>
+   </div>   )}
+
+      {isYearMonthSelectorOpen && <div className="years">{renderYears()}</div>}
+      {isMonthSelectorOpen && <div className="months">{renderMonths()}</div>}
     </div>
   );
 };
