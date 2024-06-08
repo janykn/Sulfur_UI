@@ -14,7 +14,7 @@ import {
 } from "date-fns";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import './RangeDatePicker.css';
+import './DateRangePicker.css';
 
 const DateRangePicker = ({
   minDate = new Date('1999-01-01'),
@@ -22,12 +22,12 @@ const DateRangePicker = ({
   theme = 'light',
   startDate: initialStartDate = new Date(),
   width = '18rem', 
+  height= '18rem',  
   onDateChange
 }) => {
   const today = new Date();
   const isInitialStartDateWithinRange = initialStartDate && isWithinInterval(initialStartDate, { start: minDate, end: maxDate });
   const isTodayWithinRange = isWithinInterval(today, { start: minDate, end: maxDate });
-  const [height, setHeight] = useState(width);
 
   const initialDate = isInitialStartDateWithinRange
     ? initialStartDate
