@@ -50,7 +50,7 @@ input:checked + label + .background {
 label svg {
     position: absolute;
     width: 17px;
-    z-index: 100;
+    z-index: 4;
     transition: 0.3s;
 }
 label svg.sun {
