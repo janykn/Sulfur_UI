@@ -280,6 +280,14 @@
   color: white;
 }
 
+.selector-months{
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .date-range-picker {

@@ -220,15 +220,15 @@ const DateRangePicker = ({
         </>
       </div>
       {isYearMonthSelectorOpen && (
-        <div className="selector-container">
-          <div className="selector">
+        <div className="selector-container-years">
+          <div className="selector-years">
             {renderYears()}
           </div>
         </div>
       )}
       {isMonthSelectorOpen && (
-        <div className="selector-container">
-          <div className="selector">
+        <div className="selector-container-months">
+          <div className="selector-months">
             {renderMonths()}
           </div>
         </div>
