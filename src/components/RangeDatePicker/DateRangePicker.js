@@ -18,7 +18,7 @@ import './DateRangePicker.css';
 
 const DateRangePicker = ({
   minDate = new Date('1999-01-01'),
-  maxDate = new Date('2050-12-01'),
+  maxDate = new Date('2050-11-01'),
   theme = 'light',
   startDate: initialStartDate = new Date(),
   width = '18rem', 
@@ -41,7 +41,7 @@ const DateRangePicker = ({
   const [isSelecting, setIsSelecting] = useState(false);
   const [isYearMonthSelectorOpen, setIsYearMonthSelectorOpen] = useState(false);
   const [isMonthSelectorOpen, setIsMonthSelectorOpen] = useState(false);
-  const [yearRange, setYearRange] = useState({ start: currentMonth.getFullYear(), end: currentMonth.getFullYear() + 19 });
+  const [yearRange, setYearRange] = useState({ start: currentMonth.getFullYear(), end: currentMonth.getFullYear()+15 });
 
   const handleDateClick = useCallback((date) => {
     if (!isSelecting) {
@@ -82,16 +82,16 @@ const DateRangePicker = ({
   }, [isYearMonthSelectorOpen]);
 
   const handlePrevYears = useCallback(() => {
-    const newStart = yearRange.start - 20;
-    const newEnd = yearRange.end - 20;
+    const newStart = yearRange.start - 16;
+    const newEnd = yearRange.end - 16;
     if (!minDate || newEnd >= minDate.getFullYear()) {
       setYearRange({ start: newStart, end: newEnd });
     }
   }, [yearRange, minDate]);
 
   const handleNextYears = useCallback(() => {
-    const newStart = yearRange.start;
-    const newEnd = yearRange.end + 20;
+    const newStart = yearRange.start + 16;
+    const newEnd = yearRange.end + 16;
     if (!maxDate || newStart <= maxDate.getFullYear()) {
       setYearRange({ start: newStart, end: newEnd });
     }
@@ -205,29 +205,40 @@ const DateRangePicker = ({
             <div onClick={handlePrevMonth} className={`arrow-icon ${minDate && currentMonth <= startOfMonth(minDate) ? "disabled" : ""}`}><ArrowBackIcon /></div>
           )}
 
-          {isYearMonthSelectorOpen && (
-            <span onClick={handleHeaderClick}>Please Select a Year</span>
-          )}
-          {!isYearMonthSelectorOpen && (
-            <span onClick={handleHeaderClick}>{format(currentMonth, "MMMM yyyy")}</span>
-          )}
+          <div className="current-month-year" onClick={handleHeaderClick}>
+            {format(currentMonth, "MMMM yyyy")}
+          </div>
 
-          {!isYearMonthSelectorOpen && (
-            <div onClick={handleNextMonth} className={`arrow-icon ${maxDate && currentMonth >= endOfMonth(maxDate) ? "disabled" : ""}`}><ArrowForwardIcon /></div>
-          )}
-          {isYearMonthSelectorOpen && (
-            <div onClick={handleNextYears} className={`arrow-icon ${maxDate && yearRange.end >= maxDate.getFullYear() ? "disabled" : ""}`}><ArrowForwardIcon /></div>
-          )}
+          <>
+            {isYearMonthSelectorOpen && (
+              <div onClick={handleNextYears} className={`arrow-icon ${maxDate && yearRange.end >= maxDate.getFullYear() ? "disabled" : ""}`}><ArrowForwardIcon /></div>
+            )}
+            {!isYearMonthSelectorOpen && (
+              <div onClick={handleNextMonth} className={`arrow-icon ${maxDate && currentMonth >= endOfMonth(maxDate) ? "disabled" : ""}`}><ArrowForwardIcon /></div>
+            )}
+          </>
         </>
       </div>
-
-      {!isYearMonthSelectorOpen && !isMonthSelectorOpen && (<div>
-        <div className="days-of-week">{renderDaysOfWeek()}</div>
-      <div className="days">{renderDays()}</div>
-   </div>   )}
-
-      {isYearMonthSelectorOpen && <div className="years">{renderYears()}</div>}
-      {isMonthSelectorOpen && <div className="months">{renderMonths()}</div>}
+      {isYearMonthSelectorOpen && (
+        <div className="selector-container">
+          <div className="selector">
+            {renderYears()}
+          </div>
+        </div>
+      )}
+      {isMonthSelectorOpen && (
+        <div className="selector-container">
+          <div className="selector">
+            {renderMonths()}
+          </div>
+        </div>
+      )}
+      {!isYearMonthSelectorOpen && !isMonthSelectorOpen && (
+        <>
+          <div className="days-of-week">{renderDaysOfWeek()}</div>
+          <div className="days">{renderDays()}</div>
+        </>
+      )}
     </div>
   );
 };

@@ -38,7 +38,7 @@
   margin: 0 auto;
 }
 
-.days{
+.days {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -54,7 +54,7 @@
   font-size: 1rem;
   margin: 0 0px;
   padding: 0px;
-} 
+}
 
 .calendar {
   display: flex;
@@ -72,7 +72,7 @@
   width: 2rem;
   height: 2rem;
   font-size: 1rem;
-  padding:0.2rem;
+  padding: 0.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,7 +119,7 @@
 .years {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr); 
+  grid-template-rows: repeat(4, 1fr);
   gap: 10px;
   width: 100%;
 }
@@ -131,7 +131,8 @@
   width: 100%;
 }
 
-.year, .month {
+.year,
+.month {
   display: flex;
   cursor: pointer;
   padding: 1rem;
@@ -139,11 +140,13 @@
   transition: background-color 0.3s ease;
 }
 
-.year:hover, .month:hover {
+.year:hover,
+.month:hover {
   background-color: #f0f0f0;
 }
 
-.year.selected, .month.selected {
+.year.selected,
+.month.selected {
   background-color: black;
   color: white;
 }
@@ -200,11 +203,13 @@
   color: black;
 }
 
-.dark-theme .year:hover, .dark-theme .month:hover {
+.dark-theme .year:hover,
+.dark-theme .month:hover {
   background-color: #555;
 }
 
-.dark-theme .year.selected, .dark-theme .month.selected {
+.dark-theme .year.selected,
+.dark-theme .month.selected {
   background-color: white;
   color: black;
 }
@@ -254,11 +259,13 @@
   color: white;
 }
 
-.light-theme .year:hover, .light-theme .month:hover {
+.light-theme .year:hover,
+.light-theme .month:hover {
   background-color: #e0e0e0;
 }
 
-.light-theme .year.selected, .light-theme .month.selected {
+.light-theme .year.selected,
+.light-theme .month.selected {
   background-color: black;
   color: white;
 }
