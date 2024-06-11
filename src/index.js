@@ -4,3 +4,4 @@ export {default as Modal} from './components/Modal/Modal';
 export {default as Dropdown} from './components/Dropdown/Dropdown';
 export {default as DateRangePicker} from './components/RangeDatePicker/DateRangePicker';
 export {default as useMediaQuery} from './hooks/useMediaQuery';
+export {default as Switch} from './components/Switch/Switch';
