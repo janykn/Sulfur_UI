@@ -28,6 +28,8 @@ const Dropdown = ({ header, children, styles }) => {
         fontFamily : styles.headerFontFamily,
         borderRadius: '5px',
         boxShadow: styles.headerBoxShadow,
+        WebkitTapHighlightColor: 'transparent', // Add Webkit tap highlight color property
+        outline: 'none',
     },
     dropdownMenu: {
         display: isOpen ? 'block' : 'none',
@@ -44,6 +46,8 @@ const Dropdown = ({ header, children, styles }) => {
         cursor: 'pointer',
         color: styles.menuItemColor,
         backgroundColor: styles.menuBackgroundColor,
+        WebkitTapHighlightColor: 'transparent', // Add Webkit tap highlight color property
+        outline: 'none',
     },
     dropdownMenuItemHover: {
         backgroundColor: styles.menuItemHoverBackgroundColor,

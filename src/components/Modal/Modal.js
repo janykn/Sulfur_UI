@@ -106,6 +106,8 @@ const Modal = ({ isOpen, onClose, layoutProps, visualProps, children, closeCompo
       position: 'fixed',
       zIndex: 10001,
       padding: 15,
+      WebkitTapHighlightColor: 'transparent',
+      outline: 'none',
       width: isMobile ? propsToUse.width : width,
       height: isMobile ? propsToUse.height : height,
       backgroundColor: bgColor,

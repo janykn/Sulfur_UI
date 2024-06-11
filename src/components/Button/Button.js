@@ -18,6 +18,8 @@ const Button = ({ onClick, children, styles }) => {
     userSelect: 'none',
     hoverbgColor: styles.hoverbgColor,
     hoverColor: styles.hoverColor,
+    WebkitTapHighlightColor: 'transparent', // Add Webkit tap highlight color property
+    outline: 'none', // Add outline property
     '@media (max-width: 600px)': {
       padding: '4px 8px',
       fontSize: '14px',

@@ -34,6 +34,7 @@ const InputBox = ({ placeholder, value, onChange, styles }) => {
     borderRadius: '5px',
     backgroundColor: styles.backgroundColor,
     fontFamily: styles.InputfontFamily,
+    outline: 'none',
     '@media (max-width: 600px)': {
       padding: '8px',
       fontSize: '14px',
