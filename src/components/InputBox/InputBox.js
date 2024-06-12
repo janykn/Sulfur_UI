@@ -88,11 +88,12 @@ InputBox.propTypes = {
 };
 
 InputBox.defaultProps = {
+  placeholder: 'Enter Text',
   styles: {
     backgroundColor: 'white',
-    inputColor: 'grey',
-    inputBorder: '1px solid black',
-    placeholderColor: 'black',
+    inputColor: 'rgba(0, 0, 0, 0.9)',
+    inputBorder: '0.5px solid rgba(0, 0, 0, 0.7)',
+    placeholderColor: 'grey',
     InputfontFamily: 'Inter',
   },
 };
