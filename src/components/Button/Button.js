@@ -3,19 +3,33 @@ import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
 const Button = ({ onClick, children, style, spring }) => {
+  const defaultStyles = {
+    bg: 'white', // Default background color
+    color: 'black',
+    border: 'none',
+    radius: '4px',
+    pad: '6px 16px',
+    shadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+    hoverBg: '#f0f0f0',
+    hoverColor: '#000',
+  };
+
+  // Merge provided styles with default styles
+  const mergedStyles = { ...defaultStyles, ...style };
+
   const buttonStyles = {
     display: 'inline-flex',
     flexWrap: 'no-wrap',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    background: style.bg,
-    color: style.color,
-    border: style.border,
-    borderRadius: style.radius,
-    padding: style.pad,
+    background: mergedStyles.bg,
+    color: mergedStyles.color,
+    border: mergedStyles.border,
+    borderRadius: mergedStyles.radius,
+    padding: mergedStyles.pad,
     cursor: 'pointer',
-    boxShadow: style.shadow,
+    boxShadow: mergedStyles.shadow,
     userSelect: 'none',
     WebkitTapHighlightColor: 'transparent',
     outline: 'none',
@@ -34,7 +48,7 @@ const Button = ({ onClick, children, style, spring }) => {
 
   return (
     <ButtonComponent
-      whileHover={spring ? { scale: 1.1, background: style.hoverBg, color: style.hoverColor } : null}
+      whileHover={spring ? { scale: 1.1, background: mergedStyles.hoverBg, color: mergedStyles.hoverColor } : null}
       whileTap={spring ? { scale: 0.9 } : null}
       transition={spring ? { bounceDamping: 10, bounceStiffness: 600 } : {}}
       style={buttonStyles}
@@ -70,7 +84,7 @@ Button.defaultProps = {
     border: 'none',
     radius: '4px',
     pad: '6px 16px',
-    shadow: '0px 4px 6px rgba(0, 0, 0, 1)',
+    shadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
     hoverBg: '#f0f0f0',
     hoverColor: '#000',
   },
