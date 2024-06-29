@@ -2,24 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
-const Button = ({ onClick, children, styles }) => {
+const Button = ({ onClick, children, style, spring }) => {
   const buttonStyles = {
     display: 'inline-flex',
+    flexWrap: 'no-wrap',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: styles.backgroundColor,
-    color: styles.color,
-    border: styles.border,
-    borderRadius: styles.borderRadius,
-    padding: styles.padding,
+    background: style.bg,
+    color: style.color,
+    border: style.border,
+    borderRadius: style.radius,
+    padding: style.pad,
     cursor: 'pointer',
-    boxShadow: styles.boxShadow,
+    boxShadow: style.shadow,
     userSelect: 'none',
-    hoverbgColor: styles.hoverbgColor,
-    hoverColor: styles.hoverColor,
-    WebkitTapHighlightColor: 'transparent', // Add Webkit tap highlight color property
-    outline: 'none', // Add outline property
+    WebkitTapHighlightColor: 'transparent',
+    outline: 'none',
     '@media (max-width: 600px)': {
       padding: '4px 8px',
       fontSize: '14px',
@@ -31,47 +30,51 @@ const Button = ({ onClick, children, styles }) => {
     userSelect: 'none',
   };
 
+  const ButtonComponent = spring ? motion.div : 'div';
+
   return (
-    <motion.div
-      whileHover={{ scale: 1.1, backgroundColor: buttonStyles.hoverbgColor, color: buttonStyles.hoverColor }}
-      whileTap={{ scale: 0.9 }}
-      transition={{ bounceDamping: 10, bounceStiffness: 600 }}
+    <ButtonComponent
+      whileHover={spring ? { scale: 1.1, background: style.hoverBg, color: style.hoverColor } : null}
+      whileTap={spring ? { scale: 0.9 } : null}
+      transition={spring ? { bounceDamping: 10, bounceStiffness: 600 } : {}}
       style={buttonStyles}
       onClick={onClick}
     >
       {React.Children.map(children, (child) => (
         <div style={childStyles}>{child}</div>
       ))}
-    </motion.div>
+    </ButtonComponent>
   );
 };
 
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-  styles: PropTypes.shape({
-    backgroundColor: PropTypes.string,
+  style: PropTypes.shape({
+    bg: PropTypes.string,
     color: PropTypes.string,
     border: PropTypes.string,
-    borderRadius: PropTypes.string,
-    padding: PropTypes.string,
-    boxShadow: PropTypes.string,
-    hoverbgColor: PropTypes.string,
+    radius: PropTypes.string,
+    pad: PropTypes.string,
+    shadow: PropTypes.string,
+    hoverBg: PropTypes.string,
     hoverColor: PropTypes.string,
   }),
+  spring: PropTypes.bool,
 };
 
 Button.defaultProps = {
-  styles: {
-    backgroundColor: 'white',
+  style: {
+    bg: 'white', // Default background color
     color: 'black',
     border: 'none',
-    borderRadius: '4px',
-    padding: '6px 16px',
-    boxShadow: '0px 4px 6px rgba(0, 0, 0, 1)',
-    hoverbgColor: '#f0f0f0',
+    radius: '4px',
+    pad: '6px 16px',
+    shadow: '0px 4px 6px rgba(0, 0, 0, 1)',
+    hoverBg: '#f0f0f0',
     hoverColor: '#000',
   },
+  spring: true, // Default to enabling spring animations
 };
 
 export default Button;
