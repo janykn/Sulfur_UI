@@ -104,6 +104,7 @@ const GradientButton = ({
   motionGrad,
   gradSpring,
   gradHover,
+  gradColor,
   hoverColor = 'white',
 }) => {
   const buttonStyles = {
@@ -112,12 +113,12 @@ const GradientButton = ({
     textAlign: 'center',
     transition: '0.5s',
     backgroundSize: '200% auto',
-    color: 'white',
     boxShadow: '0 0 2px #eee',
     borderRadius: '10px',
     display: 'block',
     backgroundImage: `linear-gradient(to right, ${motionGrad[0]} 0%, ${motionGrad[1]} 51%, ${motionGrad[2]} 100%)`,
     cursor: 'pointer',
+    color: gradColor,
   };
 
   let hoverProps = {};
@@ -154,12 +155,14 @@ GradientButton.propTypes = {
   gradSpring: PropTypes.bool,
   gradHover: PropTypes.bool,
   hoverColor: PropTypes.string,
+  gradColor: PropTypes.string,
 };
 
 GradientButton.defaultProps = {
   gradSpring: false,
   gradHover: true,
   hoverColor: 'white',
+  gradColor: 'white',
 };
 
 export { Button, GradientButton };
