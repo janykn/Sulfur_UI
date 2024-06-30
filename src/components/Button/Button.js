@@ -108,6 +108,14 @@ const GradientButton = ({
   hoverColor = 'white',
 }) => {
   const buttonStyles = {
+    display: 'inline-flex',
+    flexWrap: 'no-wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    userSelect: 'none',
+    WebkitTapHighlightColor: 'transparent',
+    outline: 'none',
     margin: '10px',
     padding: '15px 45px',
     textAlign: 'center',
@@ -115,10 +123,8 @@ const GradientButton = ({
     backgroundSize: '200% auto',
     boxShadow: '0 0 2px #eee',
     borderRadius: '10px',
-    display: 'block',
-    backgroundImage: `linear-gradient(to right, ${motionGrad[0]} 0%, ${motionGrad[1]} 51%, ${motionGrad[2]} 100%)`,
-    cursor: 'pointer',
     color: gradColor,
+    backgroundImage: `linear-gradient(to right, ${motionGrad[0]} 0%, ${motionGrad[1]} 51%, ${motionGrad[2]} 100%)`,
   };
 
   let hoverProps = {};
