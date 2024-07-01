@@ -20,8 +20,9 @@ const Button = ({
     display: 'inline-flex',
     flexWrap: 'no-wrap',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
+    gap: '0.9rem',
     userSelect: 'none',
     WebkitTapHighlightColor: 'transparent',
     outline: 'none',
@@ -39,6 +40,7 @@ const Button = ({
   };
 
   const childStyles = {
+    display: 'inline-flex',
     paddingRight: '6px',
     userSelect: 'none',
   };
@@ -89,7 +91,7 @@ Button.defaultProps = {
   bg: 'white', 
   color: 'black',
   border: '1px solid rgba(255, 255, 255, 0.1)',
-  radius: '4px',
+  radius: '10px',
   pad: '15px 45px',
   shadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
   hoverBg: '#f0f0f0',
@@ -111,8 +113,9 @@ const GradientButton = ({
     display: 'inline-flex',
     flexWrap: 'no-wrap',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
+    gap: '0.9rem',
     userSelect: 'none',
     WebkitTapHighlightColor: 'transparent',
     outline: 'none',
